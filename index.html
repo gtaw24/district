@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Registration Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background-color: #0f0f1a;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .neon-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ccff, #33ff33);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .form-container {
+            background-color: rgba(15, 15, 26, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+                        0 0 40px rgba(0, 255, 255, 0.1),
+                        0 0 80px rgba(0, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #00ffff;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff,
+                         0 0 20px #00ffff;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ffff;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #ff00cc;
+            box-shadow: 0 0 15px rgba(255, 0, 204, 0.3);
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff00cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(255, 0, 204, 0.5);
+        }
+        
+        button:hover {
+            background-color: #cc00a3;
+            box-shadow: 0 0 20px rgba(255, 0, 204, 0.8);
+        }
+        
+        .neon-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
+            100% { box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); }
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #33ff33;
+            text-shadow: 0 0 10px #33ff33;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="neon-bg"></div>
+    <div class="form-container neon-pulse">
+        <h1>REGISTRATION FORM</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" pattern="[0-9]+" title="Numbers only" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="discord">E-mail ((discord))</label>
+                <input type="text" id="discord" name="discord" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age</label>
+                <select id="age" name="age" required>
+                    <option value="" disabled selected>Select your age</option>
+                    <option value="Under 18">Under 18</option>
+                    <option value="18-25">18-25</option>
+                    <option value="26-35">26-35</option>
+                    <option value="36-45">36-45</option>
+                    <option value="46+">46+</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="experience">Previous Experience (optional)</label>
+                <textarea id="experience" name="experience" rows="4"></textarea>
+            </div>
+            
+            <button type="submit">SUBMIT</button>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+            <h2>Thank you for your submission!</h2>
+            <p>Your information has been received.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const phone = document.getElementById('phone').value;
+            const discord = document.getElementById('discord').value;
+            const age = document.getElementById('age').value;
+            const experience = document.getElementById('experience').value;
+            
+            // Create embed object for Discord
+            const embed = {
+                title: "New Registration",
+                color: 0x00FFFF,
+                fields: [
+                    {
+                        name: "Name",
+                        value: `${firstName} ${lastName}`,
+                        inline: true
+                    },
+                    {
+                        name: "Phone",
+                        value: phone,
+                        inline: true
+                    },
+                    {
+                        name: "Discord",
+                        value: discord,
+                        inline: true
+                    },
+                    {
+                        name: "Age",
+                        value: age,
+                        inline: true
+                    },
+                    {
+                        name: "Previous Experience",
+                        value: experience || "Not provided",
+                        inline: false
+                    }
+                ],
+                timestamp: new Date().toISOString()
+            };
+            
+            // Send to Discord webhook
+            fetch('https://discord.com/api/webhooks/1391798074761937027/2RsF5x-gD58Cviaqfp-9lo9pnHvDUlaxmYA5YCqkMUz26Xo0oNMhasPFjBaBMZygImxv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    embeds: [embed]
+                }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    document.getElementById('registrationForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                } else {
+                    alert('There was an error submitting your form. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your form. Please try again.');
+            });
+        });
+        
+        // Validate phone number input
+        document.getElementById('phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
+</body>
+</html>
