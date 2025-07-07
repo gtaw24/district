@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Registration Form</title>
+    <title>Vinewood District Application Form</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
         
@@ -131,7 +131,7 @@
 <body>
     <div class="neon-bg"></div>
     <div class="form-container neon-pulse">
-        <h1>REGISTRATION FORM</h1>
+        <h1>JOB APPLICATION</h1>
         <form id="registrationForm">
             <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -164,10 +164,29 @@
                     <option value="46+">46+</option>
                 </select>
             </div>
+
+             <div class="form-group">
+                <label for="fb">FB or imgur link with your photo</label>
+                <input type="text" id="fb" name="fb" required>
+            </div>
+
+         <div class="form-group">
+                <label for="role">Position you're applying for</label>
+                <select id="role" name="role" required>
+                    <option value="" disabled selected>Select the role</option>
+                    <option value="bartender">Bartender</option>
+                    <option value="exotic dancer">Exotic Dancer</option>
+                </select>
+            </div>
             
             <div class="form-group">
                 <label for="experience">Previous Experience (optional)</label>
                 <textarea id="experience" name="experience" rows="4"></textarea>
+            </div>
+
+             <div class="form-group">
+                <label for="stage">Stage name (optional)</label>
+                <textarea id="stage" name="stage" rows="2"></textarea>
             </div>
             
             <button type="submit">SUBMIT</button>
@@ -188,8 +207,11 @@
             const lastName = document.getElementById('lastName').value;
             const phone = document.getElementById('phone').value;
             const discord = document.getElementById('discord').value;
+            const fb = document.getElementById('fb').value;
             const age = document.getElementById('age').value;
+            const role = document.getElementById('role').value;
             const experience = document.getElementById('experience').value;
+            const stage = document.getElementById('stage').value;
             
             // Create embed object for Discord
             const embed = {
