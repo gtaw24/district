@@ -9,20 +9,19 @@
         
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px;
             font-family: 'Orbitron', sans-serif;
             background-color: #0f0f1a;
             color: #fff;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            align-items: flex-start; /* Changed from center to flex-start */
             position: relative;
         }
         
         .neon-bg {
-            position: absolute;
+            position: fixed; /* Changed from absolute to fixed */
             top: 0;
             left: 0;
             width: 100%;
@@ -50,6 +49,7 @@
             width: 100%;
             max-width: 500px;
             border: 1px solid #00ffff;
+            margin: 30px 0; /* Added margin for better spacing */
         }
         
         h1 {
@@ -165,12 +165,12 @@
                 </select>
             </div>
 
-             <div class="form-group">
+            <div class="form-group">
                 <label for="fb">FB or imgur link with your photo</label>
                 <input type="text" id="fb" name="fb" required>
             </div>
 
-         <div class="form-group">
+            <div class="form-group">
                 <label for="role">Position you're applying for</label>
                 <select id="role" name="role" required>
                     <option value="" disabled selected>Select the role</option>
@@ -184,7 +184,7 @@
                 <textarea id="experience" name="experience" rows="4"></textarea>
             </div>
 
-             <div class="form-group">
+            <div class="form-group">
                 <label for="stage">Stage name (optional)</label>
                 <textarea id="stage" name="stage" rows="2"></textarea>
             </div>
@@ -215,7 +215,7 @@
             
             // Create embed object for Discord
             const embed = {
-                title: "New Registration",
+                title: "New Job Application",
                 color: 0x00FFFF,
                 fields: [
                     {
@@ -236,6 +236,21 @@
                     {
                         name: "Age",
                         value: age,
+                        inline: true
+                    },
+                    {
+                        name: "Photo Link",
+                        value: fb,
+                        inline: false
+                    },
+                    {
+                        name: "Position",
+                        value: role,
+                        inline: true
+                    },
+                    {
+                        name: "Stage Name",
+                        value: stage || "Not provided",
                         inline: true
                     },
                     {
@@ -262,6 +277,9 @@
                     // Show success message
                     document.getElementById('registrationForm').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';
+                    
+                    // Scroll to the success message
+                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
                 } else {
                     alert('There was an error submitting your form. Please try again.');
                 }
